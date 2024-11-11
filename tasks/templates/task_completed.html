@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Completed Tasks</h1>
+    
+    {% if tasks %}
+        <div class="list-group">
+            {% for task in tasks %}
+                <a href="{% url 'task_detail' task.id %}" class="list-group-item list-group-item-action">
+                    <h5 class="mb-1">{{ task.title }}</h5>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info mt-4 text-center">
+            No completed tasks found.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

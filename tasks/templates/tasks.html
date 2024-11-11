@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Tasks Pending</h1>
+
+    <!-- Verificar si el usuario está autenticado -->
+    {% if user.is_authenticated %}
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search Task" aria-label="Search Task">
+            <button class="btn btn-outline-primary" type="button">Search</button>
+        </div>
+
+        <div class="mb-3">
+            <a href="/task/create" class="btn btn-success">Create Task</a>
+        </div>
+
+        {% if tasks %}
+            <div class="list-group">
+                {% for task in tasks %}
+                    <a href="{% url 'task_detail' task.id %}" class="list-group-item list-group-item-action">
+                        <h5 class="mb-1">{{ task.title }}</h5>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center mt-4">
+                No pending tasks found.
+            </div>
+        {% endif %}
+        
+    {% else %}
+        <h3 class="text-center">To create tasks, you need to be signed in</h3>
+        <div class="text-center">
+            <a href="/signin/" class="btn btn-primary">Sign In</a> or 
+            <a href="/signup/" class="btn btn-secondary">Sign Up</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

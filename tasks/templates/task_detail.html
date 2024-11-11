@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Task Detail</h1>
+
+    {% if not_found %}
+        <div class="alert alert-danger">
+            {{ not_found }}
+        </div>
+    {% else %}
+        <h3 class="mb-3">{{ task.title }}</h3>
+
+        <div class="card p-4 shadow-sm mb-4">
+            <form action="" method="POST" class="mb-3">
+                {% csrf_token %}
+                {{ error }}
+                <div class="mb-3">
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+
+            <form action="{% url 'task_complete' task.id %}" method="POST" class="mb-3">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success">Complete</button>
+            </form>
+
+            <form action="{% url 'task_delete' task.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
